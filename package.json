@@ -1,11 +1,13 @@
 {
-  "name": "vin-vue",
-  "version": "0.0.0",
+  "name": "vin-concept",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
+    "bootstrap": "^5.0.0-alpha3",
+    "popper.js": "^1.16.1",
     "vue": "^3.0.0-beta.15"
   },
   "devDependencies": {
