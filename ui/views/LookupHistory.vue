@@ -1,14 +1,12 @@
 <template>
   <main class="form-signin">
-      {{ vin }}
   </main>
 </template>
 
 <script>
 export default {
-  name: 'VINDetails',
+  name: 'LookupHistory',
   props: {
-    vin: String
   },
   data() {
     return {

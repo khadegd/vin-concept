@@ -3,7 +3,6 @@ import VINDecoder from "../views/VINDecoder.vue"
 import VINDetails from "../views/VINDetails.vue"
 import LookupHistory from "../views/LookupHistory.vue"
 
-
 const routes = [
     {
       path: '/',
