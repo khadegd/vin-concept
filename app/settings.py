@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
 
+    'vin',
     'api'
 ]
 
@@ -81,8 +82,12 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'vinconcept',
+        'USER': 'khadegd',
+        'PASSWORD': '9BffUYdz',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
 }
 
