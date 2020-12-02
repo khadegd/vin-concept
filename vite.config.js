@@ -9,5 +9,6 @@ export default {
       changeOrigin: true,
       rewrite: path => path.replace(/^\/api/, '')
     }
-  }
+  },
+  assetsDir: 'static'
 }
