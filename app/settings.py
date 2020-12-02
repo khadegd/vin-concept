@@ -93,9 +93,9 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'vinconcept',
-        'USER': 'khadegd',
-        'PASSWORD': '9BffUYdz',
+        'NAME': 'vinconceptdb',
+        'USER': 'vinconcept',
+        'PASSWORD': 'vinconcept',
         'HOST': '127.0.0.1',
         'PORT': '5432',
     }
