@@ -1,7 +1,6 @@
 <template>
   <div class="align-left">
-    <div v-if="vinDetails == null" class="spinner-border m-5" role="status">
-    </div>
+    <div v-if="vinDetails == null" class="spinner-border m-5" role="status"></div>
     <table v-else class="table table-striped">
       <thead>
         <tr>
