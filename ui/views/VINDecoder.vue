@@ -39,7 +39,7 @@ export default {
         return
       }
       let calculatedCheckDigit = this.calculateCheckDigit(this.inputVIN);
-      if (calculatedCheckDigit === parseInt(this.inputVIN[8])) {
+      if (calculatedCheckDigit == this.inputVIN[8]) {
         this.isValid = true;
       } else {
         this.isValid = false;
