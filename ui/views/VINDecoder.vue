@@ -1,6 +1,6 @@
 <template>
   <main class="form-signin">
-    <form @submit.prevent="validateVIN">
+    <form @submit.prevent="validateAndFetch">
       <h1 class="h1 mb-3 fw-normal">VIN decoder</h1>
       <label for="inputVIN" class="visually-hidden">VIN</label>
       <input v-model="inputVIN"
@@ -11,15 +11,14 @@
              placeholder="VIN"
              required autofocus>
       <br>
-      <p v-if="isValid">{{ inputVIN }} is valid</p>
-      <p v-else>{{ inputVIN }} is invalid</p>
+      <p v-if="!isValid">{{ inputVIN }} is invalid</p>
       <button class='btn btn-primary'>Submit</button>
     </form>
   </main>
 </template>
 
 <script>
-import http from '../http';
+import { http } from '../http';
 
 export default {
   name: 'VINDecoder',
@@ -33,6 +32,12 @@ export default {
     }
   },
   methods: {
+    validateAndFetch() {
+      this.validateVIN();
+      if(this.isValid === true) {
+          this.$router.push({name: 'vin-details', params: {vin: this.inputVIN}});
+      }
+    },
     validateVIN() {
       if(this.inputVIN.length !== 17 ) {
         this.isValid = false;

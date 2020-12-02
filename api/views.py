@@ -1,11 +1,14 @@
 import requests
+import json
 from datetime import datetime, timedelta
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import generics
 
 from vin.models import Vehical
+from .serializers import VehicalSerializer
 
 class DecodeVIN(APIView):
     """
@@ -23,14 +26,30 @@ class DecodeVIN(APIView):
         time_threshold = datetime.now() - timedelta(hours=6)
         latest_accessed_vin = Vehical.objects.filter(updated_at__lt=time_threshold,vin=vin)
 
-        if latest_accessed_vin is None:
-            fetch_from_nhtsa = None
+        if not latest_accessed_vin:
+            decoded_vins = self.fetch_from_nhtsa(vin)
+            for vehical in decoded_vins:
+                latest_accessed_vin = vehical
+                obj, created = Vehical.objects.update_or_create(
+                    vin=vehical['VIN'], data=vehical
+                )
         return Response(latest_accessed_vin)
 
-class HistoryOfAccessedVIN(APIView):
-    def get(self, request, format=None):
-        history = Vehical.objects.all().order_by('-updated_at')[:255]
-        return Response(history)
+    def fetch_from_nhtsa(self, vin):
+        nhtsa_url = "https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVINValuesBatch/"
+        payload = {
+            'data': vin,
+            'format': 'json'
+        }
+        _response = requests.post(nhtsa_url, payload)
+        _results = json.loads(_response.content)
+        results = _results['Results']
+        return results
+
+
+class HistoryOfAccessedVIN(generics.ListAPIView):
+    queryset = Vehical.objects.all().order_by('-updated_at')[:255]
+    serializer_class = VehicalSerializer
 
 class ValidateVIN():
     def __init__(self, vin):
