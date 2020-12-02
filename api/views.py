@@ -15,13 +15,14 @@ class DecodeVIN(APIView):
     Check if VIN is valid.
     Shows latest accessed vin in last 6 hours.
     If not present get, freshly decoded.
+    If present but older than 6 hours get it and update in db.
     """
 
     def get(self, request, vin, format=None):
         is_valid_vin = ValidateVIN(vin).is_valid_vin()
 
         if not is_valid_vin:
-            return Response('Not a valid vin')
+            return Response('Not a valid VIN')
 
         time_threshold = datetime.now() - timedelta(hours=6)
         latest_accessed_vin = Vehical.objects.filter(updated_at__lt=time_threshold,vin=vin)
